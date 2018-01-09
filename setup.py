@@ -6,7 +6,7 @@ author_email = maintainer_email = "kumaresan.rajeswaran@gmail.com"
 license = 'gplv3'
 
 setup_args = {
-    'name': 'scraper',
+    'name': 'mkvcage',
     'version': '0.0.1',
     'author': author,
     'author_email': author_email,
@@ -19,15 +19,7 @@ setup_args = {
     'zip_safe': False,
     'package_data': {"": ['*.*']},
     'install_requires': [
-        'certifi==2017.11.5',
-        'chardet==3.0.4',
-        'html5lib==0.999999999',
-        'idna==2.6',
-        'microdata==0.6.1',
-        'requests==2.18.4',
-        'six==1.11.0',
-        'urllib3==1.22',
-        'webencodings==0.5.1',
+        'scrapy==1.5.0',
         ],
 }
 

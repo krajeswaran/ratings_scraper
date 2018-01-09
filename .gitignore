@@ -102,3 +102,4 @@ error_log
 
 
 node_modules
+**out.json**
