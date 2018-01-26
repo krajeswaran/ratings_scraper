@@ -16,16 +16,17 @@ class MkvcageSpider(scrapy.Spider):
 
     def start_requests(self):
         depth = int(self.depth)  # self.settings['DEPTH_LIMIT'] / 10
-        urls = [self.MKVCAGE_PAGE % i for i in range(1, depth)]
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+        for i in xrange(1, depth):
+            url = self.MKVCAGE_PAGE % i
+            yield scrapy.Request(url=url, callback=self.parse, meta={'page': str(i)})
 
     def parse(self, response):
         for movie in response.xpath(self.MOVIE_TITLES_XPATH_SELECTOR):
             yield scrapy.Request(
                 movie.xpath(self.HREF_XPATH_SELECTOR).extract_first(),
                 callback=self.get_ratings,
-                meta={'name': movie.xpath(self.TEXT_XPATH_SELECTOR).extract_first()})
+                meta={'name': movie.xpath(self.TEXT_XPATH_SELECTOR).extract_first(),
+                      'page': response.meta.get('page')})
 
     def find_movie_details(self, response):
         try:
@@ -38,6 +39,7 @@ class MkvcageSpider(scrapy.Spider):
 
             results['magnet'] = response.meta.get('magnet', '')
             results['name'] = response.meta.get('name', '')
+            results['page'] = response.meta.get('page', '')
             yield results
         except (ValueError, IndexError) as e:
             self.logger.debug("OMDB response content: " + response.body)
@@ -52,4 +54,5 @@ class MkvcageSpider(scrapy.Spider):
         yield scrapy.Request(
                 self.OMDB_TITLE_SEARCH_URI.format(self.omdb_key, imdb_title),
                 callback=self.find_movie_details,
-                meta={'magnet': magnet, 'name': response.meta.get('name', '')})
+                meta={'magnet': magnet, 'name': response.meta.get('name', ''),
+                      'page': response.meta.get('page', '')})

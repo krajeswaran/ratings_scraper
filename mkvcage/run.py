@@ -6,10 +6,10 @@ from scrapy.utils.project import get_project_settings
 from spiders.mkvcage import MkvcageSpider
 
 
-def print_nice(d):
-    for k, v in d.iteritems():
-        print "{} : {}".format(k.encode('utf-8'), v.encode('utf-8'))
-
+try:
+    os.remove('out.json')
+except OSError:
+    pass
 
 process = CrawlerProcess(get_project_settings())
 spider = MkvcageSpider()
@@ -19,8 +19,18 @@ process.crawl(spider, depth=depth, omdb_key=omdb_key)
 process.start()
 
 
+def print_nice(d):
+    for k, v in d.iteritems():
+        print "{} : {}".format(k.encode('utf-8'), v.encode('utf-8'))
+
+
 with open('out.json') as f:
+    l = []
     for line in f:
         d = json.loads(line)
+        l.append(d)
+
+    sortedlist = sorted(l, key=lambda k: int(k['page']))
+    for d in sortedlist:
         print_nice(d)
         print '_________________________________________________________'
