@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import re
 import json
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
@@ -28,6 +29,9 @@ with open('out.json') as f:
     l = []
     for line in f:
         d = json.loads(line)
+        if re.search("S[0-9]{2}E[0-9]{2}", d.get("name", "")):
+            # print "Skipping tv episode: ", d["name"]
+            continue
         l.append(d)
 
     sortedlist = sorted(l, key=lambda k: int(k['page']))
