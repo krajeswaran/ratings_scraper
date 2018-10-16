@@ -10,9 +10,9 @@ class MkvcageSpider(scrapy.Spider):
     IMDB_TITLE_XPATH_SELECTOR = '//span/@data-title'
     MAGNET_URL_XPATH_SELECTOR = "//*[contains(@class,'buttn magnet')]"
     TORRENT_URL_XPATH_SELECTOR = "//*[contains(@class,'buttn torrent')]"
-    OMDB_TITLE_SEARCH_URI = 'http://www.omdbapi.com/?apikey={}&i={}'
+    OMDB_TITLE_SEARCH_URI = 'https://www.omdbapi.com/?apikey={}&i={}'
     OMDB_INTERESTING_ATTRS = ['Actors', 'Plot', 'Genre', 'Awards', 'Year', 'Title']
-    MKVCAGE_PAGE = 'http://www.mkvcage.com/category/720p/page/%s'
+    MKVCAGE_PAGE = 'https://www.mkvcage.ws/category/720p/page/%s/'
 
     def start_requests(self):
         depth = int(self.depth)  # self.settings['DEPTH_LIMIT'] / 10
