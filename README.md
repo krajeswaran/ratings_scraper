@@ -2,6 +2,8 @@
 
 A small python script to scrape ratings of a movie/show given a name.
 
+PS: Switch to `mkvcage` branch for a realistic/useful scraper which scrapes ~redacted~ARRRR! website and auguments it with ratings/plot/cast from OMDB + IMDB 
+
 ## Approach
 
 Looks like there are many ways we can use IMDB for finding ratings of a title/show/movie.
