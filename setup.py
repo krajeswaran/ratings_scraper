@@ -24,9 +24,9 @@ setup_args = {
         'html5lib==0.999999999',
         'idna==2.6',
         'microdata==0.6.1',
-        'requests==2.18.4',
+        'requests>=2.20.0',
         'six==1.11.0',
-        'urllib3==1.22',
+        'urllib3>=1.23',
         'webencodings==0.5.1',
         ],
 }
